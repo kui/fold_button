@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fold Button Example</title>
+
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
+
+    <link rel="import" href="packages/polymer/polymer.html">
+    <link rel="import" href="packages/fold_button/fold_button.html">
+    <script type="application/dart">export 'package:polymer/init.dart';</script>
+  </head>
+  <body>
+
+    <h1>Fold Button Example</h1>
+
+    <p>A custom element to fold/unfold the <code>target</code> element</p>
+
+    <p><a href="https://github.com/kui/fold_button/blob/master/example/index.html">Source code</a></p>
+
+    <fold-button target="#first-target">fold-button</fold-button>
+    <!--
+       <on-folding> appear only when <fold-button> is folding the target element.
+       <on-unfolding> appear only when <fold-button> is not folding the target element.
+
+       If <fold-button> has the "folding" attribute, the `target` elelement
+       will be fold when the it's <fold-button> is attached.
+    -->
+    <div style="text-align: right">
+      <fold-button target="#second-target" folding>
+        second fold-button:
+        <on-folding>Do unfold</on-folding>
+        <on-unfolding>Do fold</on-unfolding>
+      </fold-button>
+    </div>
+
+    <p id="first-target" style="background-color: green;display: inline-block">
+      first target<br>
+      this element may fold<br>
+    </p>
+
+    <p id="second-target" style="background-color: red;">
+      second target<br>
+      this element may fold too<br>
+    </p>
+
+    <a href="https://github.com/kui/color_palette"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+  </body>
+</html>
