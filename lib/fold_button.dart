@@ -2,6 +2,7 @@ library fold_button;
 
 import 'dart:html';
 import 'dart:async';
+import 'dart:math';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('fold-button')
@@ -9,7 +10,7 @@ class FoldButtonElement extends PolymerElement {
   static const List<String> PROP_NAMES =
       const ['display', 'transform', 'opacity', 'transform-origin', 'transition'];
   static const TRANSITION_DURATION = const Duration(milliseconds: 200);
-  static const DISPLAY_DELAY = const Duration(milliseconds: 80);
+  static const DISPLAY_DELAY = const Duration(milliseconds: 50);
 
   @PublishedProperty(reflect: true)
   String get target => readValue(#target);
@@ -75,7 +76,7 @@ class FoldButtonElement extends PolymerElement {
     _setStyle(t.style, 'transition',
         'transform ${TRANSITION_DURATION.inMilliseconds}ms ease-in  0s, '
         'opacity   ${TRANSITION_DURATION.inMilliseconds}ms ease-out 0s');
-    startTransitionEndTimer();
+    _startTransitionEndTimer();
   }
 
   void _unfoldTarget() {
@@ -87,21 +88,21 @@ class FoldButtonElement extends PolymerElement {
 
     _restoreStyle(t.style, 'display');
 
+    _startTransitionEndTimer(delay: DISPLAY_DELAY + TRANSITION_DURATION);
     new Timer(DISPLAY_DELAY, () {
       _restoreStyle(t.style, 'transform', 'scale(1)');
       _restoreStyle(t.style, 'opacity', '1');
-      startTransitionEndTimer();
     });
   }
 
-  void startTransitionEndTimer() {
+  void _startTransitionEndTimer({Duration delay: TRANSITION_DURATION}) {
     if (_transitionEndTimer != null) {
       _transitionEndTimer.cancel();
     }
-    _transitionEndTimer = new Timer(TRANSITION_DURATION, handleTransitionEnd);
+    _transitionEndTimer = new Timer(delay, _handleTransitionEnd);
   }
 
-  void handleTransitionEnd() {
+  void _handleTransitionEnd() {
     final t = _targetElement;
     if (t == null) return;
 
@@ -115,8 +116,8 @@ class FoldButtonElement extends PolymerElement {
   }
 
   _setStyle(CssStyleDeclaration style, String propName, String value) =>
-      _listWithVenderPrefix(propName).forEach((name) {
-          style.setProperty(name, value); print(name);});
+      _listWithVenderPrefix(propName).forEach((name) =>
+          style.setProperty(name, value));
   _saveStyles(CssStyleDeclaration style) =>
       PROP_NAMES.forEach((p) => _saveStyle(style, p));
   _saveStyle(CssStyleDeclaration style, String propName) {
@@ -142,15 +143,17 @@ List<String> _listWithVenderPrefix(String propName) =>
   ['-webkit-$propName', '-moz-$propName', '-ms-$propName',
    '-o-$propName', propName];
 
-_getCenterPoint(Element e) {
+Point _getCenterPoint(Element e) {
   final rects = e.getClientRects();
-  return rects
-    .map((r) => (r.topLeft + r.bottomRight) * 0.5)
-    .fold(new Point(0.0, 0.0), (prev, p) => prev + p) * (1 / rects.length);
+  final Point sumPoint = rects
+      .fold(new Point(0,0), (prev, r) => prev + r.topLeft + r.bottomRight);
+  final f = 1 / (2 * rects.length);
+  return sumPoint * f;
 }
-_getTopLeftPoint(Element e) {
+Point _getTopLeftPoint(Element e) {
   final rects = e.getClientRects();
-  return rects
-    .map((r) => r.topLeft)
-    .fold(new Point(0.0, 0.0), (prev, p) => prev + p) * (1 / rects.length);
+  final Point sumPoint = rects
+      .fold(new Point(0,0), (prev, r) => prev + r.topLeft);
+  final f = 1 / rects.length;
+  return sumPoint * f;
 }
