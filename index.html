@@ -8,6 +8,8 @@
     
     
     
+
+    
   </head>
   <body><script src="packages/web_components/platform.js"></script><script src="packages/web_components/dart_support.js"></script>
 
@@ -327,7 +329,40 @@ html /deep/ [segment], html /deep/ segment {
 <polymer-element name="on-unfolding" noscript="">
   <template><content></content></template>
 </polymer-element>
+<style>
+      #third-button {
+        padding: 1px;
+      }
+      #third-button::shadow > button {
+        background-color: #ddd;
+        border: 1px solid #333;
+        color: #333;
+        box-shadow: 2px 2px 2px;
+      }
 
+      #third-button:hover {
+        padding: 0px 2px 2px 0px;
+      }
+      #third-button:hover::shadow > button {
+        background-color: #eee;
+        border: 1px solid #999;
+        box-shadow: 3px 3px 3px;
+      }
+
+      #third-button:active {
+        padding: 2px 0px 0px 2px;
+      }
+      #third-button:active::shadow > button {
+        background-color: #ccc;
+        box-shadow: 1px 1px 1px;
+      }
+
+      #third-target {
+        height: 300px;
+        width: 300px;
+        background-color: magenta;
+      }
+    </style>
 
     <h1>Fold Button Example</h1>
 
@@ -335,20 +370,29 @@ html /deep/ [segment], html /deep/ segment {
 
     <p><a href="https://github.com/kui/fold_button/blob/master/example/index.html">Source code</a></p>
 
-    <fold-button target="#first-target">fold-button</fold-button>
-    <!--
+    <div>
+      <!-- Simplest example -->
+      <fold-button target="#first-target">fold-button</fold-button>
+    </div>
+
+    <div style="text-align: right">
+      <!--
        <on-folding> appear only when <fold-button> is folding the target element.
        <on-unfolding> appear only when <fold-button> is not folding the target element.
 
        If <fold-button> has the "folding" attribute, the `target` elelement
        will be fold when the it's <fold-button> is attached.
-    -->
-    <div style="text-align: right">
+      -->
       <fold-button target="#second-target" folding="">
         second fold-button:
         <on-folding>Do unfold</on-folding>
         <on-unfolding>Do fold</on-unfolding>
       </fold-button>
+    </div>
+
+    <div>
+      <!-- Applying CSS-->
+      <fold-button target="#third-target" id="third-button">third fold-button</fold-button>
     </div>
 
     <p id="first-target" style="background-color: green;display: inline-block">
@@ -360,6 +404,8 @@ html /deep/ [segment], html /deep/ segment {
       second target<br>
       this element may fold too<br>
     </p>
+
+    <div id="third-target">third target</div>
 
     <a href="https://github.com/kui/color_palette"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
   
