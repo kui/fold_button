@@ -29,7 +29,6 @@ class FoldButtonElement extends PolymerElement {
 
     var n = this.parent;
     while(n.parent != null) {
-      print(n);
       n = n.parent;
     }
     __root = n;
