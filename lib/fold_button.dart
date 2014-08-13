@@ -20,14 +20,22 @@ class FoldButtonElement extends PolymerElement {
   bool get folding => readValue(#folding, () => false);
   set folding(bool b) => writeValue(#folding, b);
 
-  @reflectable
-  bool get hasOnFoldingElement =>
-      this.querySelectorAll('on-folding,on-unfolding').isNotEmpty;
-
   HtmlElement get _targetElement =>
-      target == null ? null : querySelector(target);
+      target == null ? null : _root.querySelector(target);
   CssStyleDeclaration _originalStyle;
   Timer _transitionEndTimer;
+  Element get _root {
+    if (__root != null) return __root;
+
+    var n = this.parent;
+    while(n.parent != null) {
+      print(n);
+      n = n.parent;
+    }
+    __root = n;
+    return n;
+  }
+  Element __root;
 
   FoldButtonElement.created() : super.created();
 
