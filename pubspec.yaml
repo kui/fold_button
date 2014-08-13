@@ -1,5 +1,5 @@
 name: fold_button
-version: 0.0.1
+version: 0.1.0
 author: Keiichiro Ui <keiichiro.ui@gmail.com>
 description: A custom element to fold/unfold the target element
 homepage: https://github.com/kui/fold_button
