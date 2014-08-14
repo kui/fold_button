@@ -1,7 +1,7 @@
 Fold Button
 =================
 
-A custom element to fold/unfold the <code>target</code> element
+A custom element to fold/unfold the element specified with the <code>target</code> attribute.
 
 * [Live demo](https://kui.github.io/fold_button/)
 * [Example](https://github.com/kui/fold_button/blob/master/example/index.html)

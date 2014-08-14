@@ -1,7 +1,7 @@
 name: fold_button
 version: 0.1.1-dev
 author: Keiichiro Ui <keiichiro.ui@gmail.com>
-description: A custom element to fold/unfold the target element
+description: A custom element to fold/unfold the element specified with the <code>target</code> attribute.
 homepage: https://github.com/kui/fold_button
 dependencies:
   polymer: '>=0.12.0 <0.13.0'
