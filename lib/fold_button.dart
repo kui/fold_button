@@ -20,27 +20,24 @@ class FoldButtonElement extends PolymerElement {
   bool get folding => readValue(#folding, () => false);
   set folding(bool b) => writeValue(#folding, b);
 
-  HtmlElement get _targetElement =>
-      target == null ? null : _root.querySelector(target);
+  HtmlElement get _targetElement {
+    if (_root == null) {
+      Node f(Node n) => (n.parentNode == null) ? n : f(n.parentNode);
+      _root = f(this);
+    }
+
+    return target == null ? null : _root.querySelector(target);
+  }
+
   CssStyleDeclaration _originalStyle;
   Timer _transitionEndTimer;
-  Element get _root {
-    if (__root != null) return __root;
-
-    var n = this.parent;
-    while(n.parent != null) {
-      n = n.parent;
-    }
-    __root = n;
-    return n;
-  }
-  Element __root;
+  var _root;
 
   FoldButtonElement.created() : super.created();
 
   @override
-  attached() {
-    super.attached();
+  ready() {
+    super.ready();
     onClick.listen((_) => toggle());
   }
 
