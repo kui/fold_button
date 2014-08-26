@@ -7,7 +7,7 @@ import 'package:polymer/polymer.dart';
 
 @CustomTag('fold-button')
 class FoldButtonElement extends PolymerElement {
-  static const List<String> PROP_NAMES =
+  static const List<String> RESOTRED_PROP_NAMES =
       const ['display', 'transform', 'opacity', 'transform-origin', 'transition'];
   static const TRANSITION_DURATION = const Duration(milliseconds: 200);
   static const DISPLAY_DELAY = const Duration(milliseconds: 50);
@@ -126,13 +126,13 @@ class FoldButtonElement extends PolymerElement {
       _listWithVenderPrefix(propName).forEach((name) =>
           style.setProperty(name, value));
   _saveStyles(CssStyleDeclaration style) =>
-      PROP_NAMES.forEach((p) => _saveStyle(style, p));
+      RESOTRED_PROP_NAMES.forEach((p) => _saveStyle(style, p));
   _saveStyle(CssStyleDeclaration style, String propName) {
     if (_originalStyle == null) _originalStyle = new CssStyleDeclaration();
     _originalStyle.setProperty(propName, style.getPropertyValue(propName));
   }
   _restoreStyles(CssStyleDeclaration style) =>
-      PROP_NAMES.forEach((p) => _restoreStyle(style, p));
+      RESOTRED_PROP_NAMES.forEach((p) => _restoreStyle(style, p));
   _restoreStyle(CssStyleDeclaration style, String propName, [String defaultValue]) {
     if (_originalStyle == null) return;
     final p = _originalStyle.getPropertyValue(propName);
