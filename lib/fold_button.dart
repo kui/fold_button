@@ -61,7 +61,7 @@ class FoldButtonElement extends PolymerElement {
     }
   }
 
-  void _foldTarget() {
+  void _foldTarget([Duration delay = TRANSITION_DURATION]) {
     final t = _targetElement;
     if (t == null) {
       window.console.warn('Target not found: $target');
@@ -80,10 +80,13 @@ class FoldButtonElement extends PolymerElement {
     _setStyle(t.style, 'transition',
         'transform ${TRANSITION_DURATION.inMilliseconds}ms ease-in  0s, '
         'opacity   ${TRANSITION_DURATION.inMilliseconds}ms ease-out 0s');
-    _startTransitionEndTimer();
+
+    _startTransitionEndTimer(delay, () {
+      t.style.display = 'none';
+    });
   }
 
-  void _unfoldTarget() {
+  void _unfoldTarget([Duration delay = TRANSITION_DURATION]) {
     final t = _targetElement;
     if (t == null) {
       window.console.warn('Target not found: $target');
@@ -92,31 +95,24 @@ class FoldButtonElement extends PolymerElement {
 
     _restoreStyle(t.style, 'display');
 
-    _startTransitionEndTimer(delay: DISPLAY_DELAY + TRANSITION_DURATION);
     new Timer(DISPLAY_DELAY, () {
       _restoreStyle(t.style, 'transform', 'scale(1)');
       _restoreStyle(t.style, 'opacity', '1');
+
+      _startTransitionEndTimer(delay, () {
+        _restoreStyles(t.style);
+      });
     });
   }
 
-  void _startTransitionEndTimer({Duration delay: TRANSITION_DURATION}) {
+  void _startTransitionEndTimer(Duration delay, callback()) {
     if (_transitionEndTimer != null) {
       _transitionEndTimer.cancel();
     }
-    _transitionEndTimer = new Timer(delay, _handleTransitionEnd);
-  }
-
-  void _handleTransitionEnd() {
-    final t = _targetElement;
-    if (t == null) return;
-
-    if (folding) {
-      t.style.display = 'none';
-    } else {
-      _restoreStyles(t.style);
-    }
-
-    _transitionEndTimer = null;
+    _transitionEndTimer = new Timer(delay, () {
+      callback();
+      _transitionEndTimer = null;
+    });
   }
 
   _setStyle(CssStyleDeclaration style, String propName, String value) =>
