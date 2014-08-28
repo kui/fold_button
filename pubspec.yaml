@@ -3,8 +3,10 @@ version: 1.0.2-dev
 author: Keiichiro Ui <keiichiro.ui@gmail.com>
 description: A custom element to fold/unfold the element specified with the <code>target</code> attribute.
 homepage: https://github.com/kui/fold_button
+environment:
+  sdk: '>=1.6.0'
 dependencies:
-  polymer: '>=0.12.0 <0.13.0'
+  polymer: '>=0.13.0 <0.14.0'
 dev_dependencies:
   ghpages_generator: '>=0.2.0 <0.3.0'
   path: '>=1.2.0 <1.3.0'
