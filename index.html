@@ -1,27 +1,12 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html><html><head><script src="packages/web_components/webcomponents.min.js"></script><script src="packages/web_components/dart_support.js"></script>
     <meta charset="utf-8">
     <title>Fold Button Example</title>
 
     
-    
-
-    
-    
-    
 
     
   </head>
-  <body><script src="packages/web_components/platform.js"></script><script src="packages/web_components/dart_support.js"></script>
-
-
-<!-- unminfied for debugging:
-<link rel="import" href="src/js/polymer/layout.html">
-<script src="src/js/polymer/polymer.concat.js"></script>
--->
-
-
-
-<style shim-shadowdom="">
+  <body unresolved=""><div hidden=""><style shim-shadowdom="">
 /*******************************
           Flex Layout
 *******************************/
@@ -75,15 +60,23 @@ html /deep/ [layout][wrap-reverse] {
 }
 
 html /deep/ [flex] {
-  -ms-flex: 1;
+  -ms-flex: 1 1 0.000000001px;
   -webkit-flex: 1;
   flex: 1;
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+}
+
+html /deep/ [vertical][layout] > [flex][auto-vertical], html /deep/ [vertical][layout]::shadow [flex][auto-vertical] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
 }
 
 html /deep/ [flex][auto] {
   -ms-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
 }
 
 html /deep/ [flex][none] {
@@ -205,7 +198,7 @@ html /deep/ [layout][end-justified] {
 }
 
 html /deep/ [layout][around-justified] {
-  -ms-flex-pack: around;
+  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
@@ -290,9 +283,16 @@ html /deep/ [segment], html /deep/ segment {
   border-radius: 5px 5px 5px 5px;
 }
 
-</style><script src="packages/polymer/src/js/polymer/polymer.js"></script><script>
-// TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
-// script tag is necessary to work around a bug in Chrome 36.
+</style>
+
+<script src="packages/polymer_interop/src/js/polymer.min.js"></script>
+
+<script>
+// This empty script tag is necessary to work around dartbug.com/19650
+</script>
+
+<script>
+// This empty script tag is necessary to work around dartbug.com/19650
 </script>
 <polymer-element name="fold-button" attributes="target folding">
   <template>
@@ -322,7 +322,6 @@ html /deep/ [segment], html /deep/ segment {
       <content></content>
     </button>
   </template>
-  
 </polymer-element>
 
 <polymer-element name="on-folding" noscript="">
@@ -332,7 +331,7 @@ html /deep/ [segment], html /deep/ segment {
 <polymer-element name="on-unfolding" noscript="">
   <template><content></content></template>
 </polymer-element>
-<style>
+<script src="index.html.polymer.bootstrap.dart.js" async=""></script><style>
       #third-button {
         padding: 1px;
       }
@@ -365,7 +364,7 @@ html /deep/ [segment], html /deep/ segment {
         width: 300px;
         background-color: magenta;
       }
-    </style>
+    </style></div>
 
     <h1>Fold Button Example</h1>
 
@@ -411,7 +410,7 @@ html /deep/ [segment], html /deep/ segment {
 
     <div id="third-target">third target</div>
 
-    <a href="https://github.com/kui/fold_button"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <a href="https://github.com/kui/color_palette"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
   
 
-<script src="index.html_bootstrap.dart.js" async=""></script></body></html>
+</body></html>
