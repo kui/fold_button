@@ -1,3 +1,4 @@
+@HtmlImport('fold_button.html')
 library fold_button;
 
 import 'dart:html';
